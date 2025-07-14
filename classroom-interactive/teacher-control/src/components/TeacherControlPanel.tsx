@@ -28,7 +28,7 @@ function TeacherControlPanel({ sessionId, apiClient, wsClient }: TeacherControlP
   const [generationResult, setGenerationResult] = useState<any>(null);
   const [error, setError] = useState<string>('');
   const [showApiConfig, setShowApiConfig] = useState(false);
-  const [isConnected, setIsConnected] = useState(wsClient.isConnected());
+  const [isConnected] = useState(wsClient.isConnected());
   const [retryCount, setRetryCount] = useState(0);
 
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -48,7 +48,9 @@ function TeacherControlPanel({ sessionId, apiClient, wsClient }: TeacherControlP
     setSelectedImages(files);
   };
 
-  const handleGenerate = async (isRetry = false) => {
+  const handleGenerate = async (isRetry: boolean | React.MouseEvent = false) => {
+    // 如果是鼠标事件，则设置 isRetry 为 false
+    const retry = typeof isRetry === 'boolean' ? isRetry : false;
     if (!selectedImages.length || !prompt.trim()) {
       setError('请选择图片并输入提示词');
       return;
@@ -61,7 +63,7 @@ function TeacherControlPanel({ sessionId, apiClient, wsClient }: TeacherControlP
       return;
     }
 
-    if (!isRetry) {
+    if (!retry) {
       setRetryCount(0);
     }
 

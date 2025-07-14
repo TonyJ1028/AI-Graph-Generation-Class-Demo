@@ -20,7 +20,7 @@ function SessionInfoModal({ sessionId, isConnected, onClose }: SessionInfoModalP
       await navigator.clipboard.writeText(text);
       setCopyFeedback(`${type}已复制到剪贴板`);
       setTimeout(() => setCopyFeedback(''), 3000);
-    } catch (error) {
+    } catch {
       setCopyFeedback('复制失败，请手动复制');
       setTimeout(() => setCopyFeedback(''), 3000);
     }
@@ -114,7 +114,7 @@ function SessionInfoModal({ sessionId, isConnected, onClose }: SessionInfoModalP
             <QrCode className="w-12 h-12 text-gray-400 mx-auto mb-3" />
             <p className="text-sm text-gray-600 mb-2">二维码</p>
             <p className="text-xs text-gray-500">
-              扫描二维码快速在其他设备打开白板端<br>
+              扫描二维码快速在其他设备打开白板端<br />
               (功能开发中)
             </p>
           </div>

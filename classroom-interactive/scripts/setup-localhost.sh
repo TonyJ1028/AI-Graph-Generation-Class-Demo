@@ -1,65 +1,25 @@
 #!/bin/bash
 
-# 课堂互动系统环境配置脚本
+# 快速设置 localhost 配置脚本
 
-echo "🔧 课堂互动系统环境配置"
-echo "======================="
-echo ""
-echo "💡 使用方法:"
-echo "   交互式配置: ./setup-env.sh"
-echo "   自动配置localhost: ./setup-env.sh --auto"
-echo ""
+echo "🔧 设置所有服务为 localhost 访问"
+echo "================================"
 
-# 检查是否有命令行参数用于自动配置
-if [ "$1" = "--auto" ] || [ "$1" = "-a" ]; then
-    echo "🤖 使用自动配置模式 (localhost)"
-    SERVER_IP="localhost"
-    BACKEND_PORT="3001"
-    TEACHER_PORT="3000"
-    WHITEBOARD_PORT="3002"
-    API_BASE_URL="https://api.creativone.cn"
-    API_KEY="sk-TaAl3AvVdLyoSMGxLk3knl35fuWOjHkPyHyTALyAuGT20bTH"
-    CONFIRM="y"
-else
-    # 获取用户输入
-    read -p "请输入服务器IP地址 (默认: localhost): " SERVER_IP
-    SERVER_IP=${SERVER_IP:-localhost}
+# 固定配置
+SERVER_IP="localhost"
+BACKEND_PORT="3001"
+TEACHER_PORT="3000"
+WHITEBOARD_PORT="3002"
+API_BASE_URL="https://api.creativone.cn"
+API_KEY="sk-TaAl3AvVdLyoSMGxLk3knl35fuWOjHkPyHyTALyAuGT20bTH"
 
-    read -p "请输入后端端口 (默认: 3001): " BACKEND_PORT
-    BACKEND_PORT=${BACKEND_PORT:-3001}
-
-    read -p "请输入教师端端口 (默认: 3000): " TEACHER_PORT
-    TEACHER_PORT=${TEACHER_PORT:-3000}
-
-    read -p "请输入白板端端口 (默认: 3002): " WHITEBOARD_PORT
-    WHITEBOARD_PORT=${WHITEBOARD_PORT:-3002}
-
-    read -p "请输入API Base URL (默认: https://api.creativone.cn): " API_BASE_URL
-    API_BASE_URL=${API_BASE_URL:-https://api.creativone.cn}
-
-    read -p "请输入API Key (默认: 使用现有密钥): " API_KEY
-    API_KEY=${API_KEY:-sk-TaAl3AvVdLyoSMGxLk3knl35fuWOjHkPyHyTALyAuGT20bTH}
-fi
-
-echo ""
-echo "📋 配置信息确认:"
+echo "📋 配置信息:"
 echo "   服务器地址: ${SERVER_IP}"
 echo "   后端API: http://${SERVER_IP}:${BACKEND_PORT}"
 echo "   教师端: http://${SERVER_IP}:${TEACHER_PORT}"
 echo "   白板端: http://${SERVER_IP}:${WHITEBOARD_PORT}"
-echo "   API服务: ${API_BASE_URL}"
 echo ""
 
-# 如果不是自动模式，需要用户确认
-if [ "$1" != "--auto" ] && [ "$1" != "-a" ]; then
-    read -p "确认配置? (y/N): " CONFIRM
-    if [[ ! $CONFIRM =~ ^[Yy]$ ]]; then
-        echo "❌ 配置已取消"
-        exit 1
-    fi
-fi
-
-echo ""
 echo "🔄 正在更新配置文件..."
 
 # 更新后端配置
@@ -132,7 +92,7 @@ NEXT_PUBLIC_LOG_LEVEL=debug
 EOF
 
 echo ""
-echo "✅ 环境配置完成！"
+echo "✅ localhost 配置完成！"
 echo ""
 echo "📋 配置总结:"
 echo "   后端API: http://${SERVER_IP}:${BACKEND_PORT}"
@@ -145,8 +105,3 @@ echo "   2. 或手动启动:"
 echo "      cd backend-api && pnpm run dev"
 echo "      cd teacher-control && pnpm run dev"
 echo "      cd whiteboard-display && pnpm run dev"
-echo ""
-echo "🔍 验证配置:"
-echo "   curl http://${SERVER_IP}:${BACKEND_PORT}/health"
-echo ""
-echo "📚 更多配置选项请查看: ENV-CONFIG.md"

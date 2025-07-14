@@ -1,6 +1,6 @@
 'use client';
 
-import { forwardRef, useRef, useState } from 'react';
+import { forwardRef, useState } from 'react';
 import { Upload, X, Image as ImageIcon } from 'lucide-react';
 
 interface ImageUploadProps {
@@ -208,3 +208,5 @@ export const ImageUpload = forwardRef<HTMLInputElement, ImageUploadProps>(
     );
   }
 );
+
+ImageUpload.displayName = 'ImageUpload';
